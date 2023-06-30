@@ -1,0 +1,8 @@
+.login__bg {
+    background-image: url(https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=740&t=st=1688060161~exp=1688060761~hmac=8a0169afab7d0e379c3eaea91d24a5cc4b2894a05e6210308627a9e2e19de8a9);
+    height: 92vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
