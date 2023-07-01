@@ -1,6 +1,6 @@
 # ChatHub
 
-Live Demo link: 
+Live Demo link: https://chat-hub-frontend.vercel.app/
 
 ## Description
 
