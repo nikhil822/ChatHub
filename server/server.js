@@ -12,7 +12,7 @@ const server = require('http').createServer(app)
 const PORT = 5001
 const io = require('socket.io')(server, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: ['http://localhost:5173', 'https://chat-hub-frontend.vercel.app/'],
         methods: ['GET', 'POST']
     },
 })
