@@ -6,32 +6,57 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 import profile from "../assets/profile.avif";
 
-
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  
-  const [image, setImage] = useState(null)
-  const [uploadImg, setUploadImg] = useState(false)
-  const [previewImg, setPreviewImg] = useState(null)
-  
+
+  const [image, setImage] = useState(null);
+  const [uploadImg, setUploadImg] = useState(false);
+  const [previewImg, setPreviewImg] = useState(null);
+
   const validateImg = (e) => {
-    const file = e.target.files[0]
-    if(file.size >= 1048576){
+    const file = e.target.files[0];
+    if (file.size >= 1048576) {
       return alert("Maximum file size is 1mb");
     } else {
-      setImage(file)
-      setPreviewImg(URL.createObjectURL(file))
+      setImage(file);
+      setPreviewImg(URL.createObjectURL(file));
     }
-  
   };
-  
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if(!image) return alert("Please upload your profile picture")
-    const url = await 
-  }
+
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "dqoghr5i");
+    try {
+      setUploadImg(true);
+      let res = await fetch(
+        "https://api.cloudinary.com/v1_1/disgpgolw/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
+      const urlData = await res.json();
+      setUploadImg(false);
+      return urlData.url;
+    } catch (err) {
+      setUploadImg(false);
+      console.log(err);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!image) return alert("Please upload your profile picture");
+    try {
+      const url = await uploadImage(image);
+      console.log(url);
+    } catch(err) {
+      console.log(err)
+    }
+  };
 
   return (
     <Container>
