@@ -115,7 +115,7 @@ const Signup = () => {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-              Create account
+              {uploadImg ? 'Signing you up...' : 'Signup'}
             </Button>
 
             <div className="py-4">
