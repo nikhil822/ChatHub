@@ -1,22 +1,15 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
-
-const groups = ['General', 'Tech', 'Finance', 'Crypto']
 const cors = require('cors')
+const mongoose = require('mongoose')
 
-app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 
-const server = require('http').createServer(app)
-const PORT = 5001
-const io = require('socket.io')(server, {
-    cors: {
-        origin: ['http://localhost:5173', 'https://chat-hub-frontend.vercel.app/'],
-        methods: ['GET', 'POST']
-    },
+mongoose.connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
-
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-})
+.then(() => app.listen(process.env.PORT || 5001, () => console.log('Server is running on port 5001')))
+.catch((error) => console.log(error.message))

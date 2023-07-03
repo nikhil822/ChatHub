@@ -9,15 +9,12 @@ This is a real-time chat application developed using the MERN stack (MongoDB, Ex
 ## Features
 
 - Real-time messaging: Users can exchange messages in real-time, allowing for instant communication and smooth interactions.
-- User authentication and security: Implemented user authentication and security measures using JSON Web Tokens (JWT). This ensures secure access and protects user data within the chat application.
-- Group chat functionality: The application includes a group chat feature, allowing multiple users to participate in conversations and facilitating effective communication and collaboration.
-- The user can upload their own profile picture.
+- The user can send emojis in their chat.
+- The user can choose their own profile picture(avatar) from the set of avatars displayed to them.
 
 ## Technologies Used
 
-- Front-end: React.js, HTML, CSS, JavaScript, Redux
+- Front-end: React.js, HTML, CSS, JavaScript, Styled Components
 - Back-end: Node.js, Express.js
 - Database: MongoDB
 - Real-time communication: Socket.io
-- Authentication: JSON Web Tokens (JWT)
-- Cloudinary to upload images within the chat application
