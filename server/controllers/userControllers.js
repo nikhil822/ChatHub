@@ -42,15 +42,29 @@ module.exports.login = async (req, res, next) => {
 module.exports.setAvatar = async (req, res, next) => {
     try {
         const userId = req.params.id
-        const avatarImage = req.body.image
+        const avatarImg = req.body.image
         const userData = await User.findByIdAndUpdate(userId, {
             isAvatar: true,
-            avatarImage
+            avatarImg
         })
         return res.json({
             isSet: userData.isAvatar,
-            image: userData.avatarImage
+            image: userData.avatarImg
         })
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports.getAllUsers = async (req, res, next) => {
+    try {
+        const users = await User.find({ _id: {$ne: req.params.id }}).select([
+            "email",
+            "username",
+            "avatarImg",
+            "_id"
+        ])
+        return res.json(users)
     } catch (error) {
         next(error)
     }
