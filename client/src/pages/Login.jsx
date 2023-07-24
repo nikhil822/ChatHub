@@ -54,6 +54,8 @@ const Login = () => {
       const { data } = await axios.post(loginRoute, {
         email,
         password,
+      }, {
+        withCredentials: true
       });
       if (data.status === false) {
         toast.error(data.msg, toastOptions);

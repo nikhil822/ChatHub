@@ -69,6 +69,8 @@ const Signup = () => {
         username,
         email,
         password,
+      },{
+        withCredentials: true
       });
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
