@@ -35,7 +35,7 @@ const io = socket(server, {
     origin: 'https://chat-hub-frontend.vercel.app',
     credentials: true,
   },
-  transports: ['websocket', 'polling']
+  transports: ['polling']
 })
 
 global.onlineUsers = new Map()
