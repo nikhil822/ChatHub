@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.jpg";
 
-const Contacts = ({ contacts, currentUser, changeChat }) => {
+const Contacts = ({ contacts, changeChat }) => {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
 
   useEffect(() => {
-    if (currentUser) {
-      setCurrentUserName(currentUser.username);
-      setCurrentUserImage(currentUser.avatarImg);
+    const fetchData = async () => {
+      const data = await JSON.parse(localStorage.getItem('chat-app-user'))
+      setCurrentUserName(data.username)
+      setCurrentUserImage(data.avatarImg)
     }
-  }, [currentUser]);
+    fetchData()
+  }, []);
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
