@@ -6,34 +6,58 @@ import { getAllMessagesRoute, sendMessageRoute } from "../utils/APIRoutes";
 import axios from "axios";
 import {v4 as uuidv4} from 'uuid'
 
-const ChatContainer = ({ currentChat, currentUser, socket }) => {
+const ChatContainer = ({ currentChat, socket }) => {
   const [messages, setMessages] = useState([])
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const scrollRef = useRef()
 
   useEffect(() => {
-    const fetchData = async () => {
-      if(currentChat){
-      const response = await axios.post(getAllMessagesRoute, {
-        from: currentUser._id,
+    const fetchData1 = async () => {
+      const data = await JSON.parse(localStorage.getItem('chat-app-user'))
+      console.log(currentChat._id)
+      const res = await axios.post(getAllMessagesRoute, {
+        from: data._id,
         to: currentChat._id
       })
-      setMessages(response.data)
+      setMessages(res.data)
     }
-  }
-    fetchData()
+    fetchData1()
+  }, [currentChat])
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if(currentChat){
+  //     const response = await axios.post(getAllMessagesRoute, {
+  //       from: currentUser._id,
+  //       to: currentChat._id
+  //     })
+  //     setMessages(response.data)
+  //   }
+  // }
+  //   fetchData()
+  // }, [currentChat])
+  
+  useEffect(() => {
+    const getCurrentChat = async () => {
+      if(currentChat){
+        await JSON.parse(localStorage.getItem('chat-app-user'))._id
+      }
+    }
+    getCurrentChat()
   }, [currentChat])
 
   const handleSendMsg = async (msg) => {
-    await axios.post(sendMessageRoute, {
-      from: currentUser._id,
-      to: currentChat._id,
-      message: msg,
-    })
+    const data = await JSON.parse(localStorage.getItem('chat-app-user'))
+
     socket.current.emit('send-msg', {
       to: currentChat._id,
-      from: currentUser._id,
-      messages: msg
+      from: data._id,
+      msg
+    })
+    await axios.post(sendMessageRoute, {
+      from: data._id,
+      to: currentChat._id,
+      message: msg,
     })
     const msgs = [...messages]
     msgs.push({fromSelf: true, message: msg})
