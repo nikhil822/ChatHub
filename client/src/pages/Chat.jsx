@@ -31,7 +31,7 @@ const Chat = () => {
   useEffect(() => {
     if(currentUser) {
       socket.current = io(host, {
-        transports: ['polling']
+        path: "/my-custom-path/"
       })
       socket.current.emit('add-user', currentUser._id)
     }
