@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messageRoute");
 const socket = require('socket.io')
+import { Server } from "socket.io";
 
 app.use(express.json());
 app.use(cors({
@@ -30,14 +31,20 @@ const server = app.listen(process.env.PORT, () => {
   console.log(`Server running on ${process.env.PORT}`)
 })
 
-const io = socket(server, {
+// const io = socket(server, {
+//   cors: {
+//     origin: 'https://chat-hub-frontend.vercel.app',
+//     credentials: true,
+//   },
+//   transports: ['polling']
+// })
+const io = new Server(server, {
   cors: {
     origin: 'https://chat-hub-frontend.vercel.app',
     credentials: true,
   },
-  transports: ['polling']
-})
-
+  path: "/my-custom-path/"
+});
 global.onlineUsers = new Map()
 
 io.on('connection', (socket) => {
