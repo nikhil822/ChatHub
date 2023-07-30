@@ -35,6 +35,7 @@ const io = socket(server, {
     origin: 'https://chat-hub-frontend.vercel.app',
     credentials: true,
   },
+    rejectUnauthorized: false
 })
 
 global.onlineUsers = new Map()
