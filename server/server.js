@@ -8,10 +8,7 @@ const messageRoute = require("./routes/messageRoute");
 const socket = require('socket.io')
 
 app.use(express.json());
-app.use(cors({
-    origin: 'https://chat-hub-frontend.vercel.app',
-    credentials: true,
-  }));
+
 
 mongoose
 .connect(process.env.DB_URI, {
